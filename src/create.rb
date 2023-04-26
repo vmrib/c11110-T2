@@ -67,7 +67,7 @@ end
 
 # Cria a tabela esportes_pessoas
 ActiveRecord::Base.connection.create_table :esportes_pessoas, id: false do |t|
-    t.references :esportes, foreign_key: true
-    t.references :pessoas, foreign_key: true
+    t.references :esporte
+    t.references :pessoa
 end
 

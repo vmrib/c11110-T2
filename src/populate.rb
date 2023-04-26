@@ -62,17 +62,18 @@ Esporte.create([
     {nome: "Hipismo"},
 ])
 
-PessoaEsporte.create([
-    {pessoas_id: 1, esportes_id: 1},
-    {pessoas_id: 1, esportes_id: 2},
-    {pessoas_id: 1, esportes_id: 3},
-    {pessoas_id: 2, esportes_id: 2},
-    {pessoas_id: 2, esportes_id: 4},
-    {pessoas_id: 2, esportes_id: 3},
-    {pessoas_id: 3, esportes_id: 1},
-    {pessoas_id: 3, esportes_id: 2},
-    {pessoas_id: 3, esportes_id: 3},
-    {pessoas_id: 4, esportes_id: 9},
-    {pessoas_id: 4, esportes_id: 10},
-    {pessoas_id: 5, esportes_id: 6},
-])
+pessoas = Pessoa.all
+esportes = Esporte.all
+
+pessoas.first.esportes << esportes.first
+pessoas.first.esportes << esportes.second
+pessoas.first.esportes << esportes.third
+pessoas.second.esportes << esportes.second
+pessoas.second.esportes << esportes.fourth
+pessoas.second.esportes << esportes.third
+pessoas.third.esportes << esportes.first
+pessoas.third.esportes << esportes.second
+pessoas.third.esportes << esportes.third
+pessoas.fourth.esportes << esportes[8]
+pessoas.fourth.esportes << esportes[9]
+pessoas.fifth.esportes << esportes[5]
