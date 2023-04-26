@@ -72,7 +72,14 @@ def update(table, attributes)
   if get_model(table).nil?
     return
   end
-  get_model(table).update(attributes)
+  print "Digite os atributos que deseja alterar (formato {atributo=valor}): "
+  attributes_to_update = gets.chomp
+    .split
+    .map { |attribute| attribute.tr "\"", ""}
+    .map { |attribute| attribute.split("=") }
+    .to_h
+
+  get_model(table).where(attributes).update(attributes_to_update)
 end
 
 def delete(table, attributes)
