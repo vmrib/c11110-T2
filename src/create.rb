@@ -38,7 +38,7 @@ require 'active_record'
 
 
 # Conecta no banco de dados
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../db/database.db')
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../db/database.sqlite3')
 
 # Cria a tabela estados
 ActiveRecord::Base.connection.create_table :estados do |t|
@@ -50,14 +50,14 @@ end
 ActiveRecord::Base.connection.create_table :pessoas do |t|
     t.string :sobrenome
     t.string :nome
-    t.references :estados, foreign_key: true
+    t.references :estado, foreign_key: true
 end
 
 # Cria a tabela documentos
 ActiveRecord::Base.connection.create_table :documentos do |t|
     t.string :rg
     t.string :cpf
-    t.references :pessoas, foreign_key: true
+    t.references :pessoa, foreign_key: true
 end
 
 # Cria a tabela esportes
@@ -67,7 +67,7 @@ end
 
 # Cria a tabela esportes_pessoas
 ActiveRecord::Base.connection.create_table :esportes_pessoas, id: false do |t|
-    t.references :esporte
-    t.references :pessoa
+    t.references :esporte, foreign_key: true
+    t.references :pessoa, foreign_key: true
 end
 
