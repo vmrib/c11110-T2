@@ -1,4 +1,4 @@
-require './lib.rb'
+require './src/lib.rb'
 
 puts "Tabelas disponíveis: estados, pessoas, documentos, esportes, esportes_pessoas"
 puts "Comandos disponíveis: insere, altera, exclui, lista"
