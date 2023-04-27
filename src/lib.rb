@@ -21,10 +21,17 @@ def parse_input(input)
   input = input.split
   operation = input[0]
   table = input[1]
-  attributes = input[2..]
-    .map { |attribute| attribute.tr "\"", ""}
-    .map { |attribute| attribute.split("=") }
-    .to_h
+  
+  if input.length > 2
+    attributes = input[2..]
+      .join(" ")
+      .split("\" ")
+      .map { |attribute| attribute.tr "\"", ""}
+      .map { |attribute| attribute.split("=") }
+      .to_h
+  else
+    attributes = {}
+  end
 
   return { operation: operation, table: table, attributes: attributes }
 end
@@ -77,12 +84,15 @@ def update(table, attributes)
   end
   print "Digite os atributos que deseja alterar (formato {atributo=valor}): "
   attributes_to_update = gets.chomp
-    .split
+    .split("\" ")
     .map { |attribute| attribute.tr "\"", ""}
     .map { |attribute| attribute.split("=") }
     .to_h
 
-  if not get_model(table).where(attributes).update(attributes_to_update).valid?
+  if get_model(table)
+      .where(attributes)
+      .update(attributes_to_update)
+      .any? {|record| not record.valid?}
     puts "Atributos inválidos"
   end
 end
