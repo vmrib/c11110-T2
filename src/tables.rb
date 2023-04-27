@@ -9,6 +9,11 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: '../db/dat
 # Modelo para a tabela estados
 class Estado < ActiveRecord::Base
     has_many :pessoa, dependent: :destroy
+    validates :sigla, format: 
+        { with: /\A[a-zA-Z]+\z/ }
+    validates :sigla, length: { is: 2 }
+    validates :nome, :sigla, uniqueness: true
+    validates :nome, :sigla, presence: true
 end
 
 # Modelo para a tabela pessoas
@@ -21,6 +26,9 @@ end
 # Modelo para a tabela documentos
 class Documento < ActiveRecord::Base
     belongs_to :pessoa
+    validates :rg, :cpf, uniqueness: true
+    validates :rg, :cpf, presence: true
+    validates :rg, :cpf, numericality: { only_integer: true }
 end
 
 # Modelo para a tabela esportes

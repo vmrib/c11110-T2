@@ -1,7 +1,7 @@
 # Popula o banco de dados com 10 registros para cada tabela
-
+$:.push './src'
 require 'active_record'
-require './tables.rb'
+require 'tables.rb'
 
 Estado.create([
     {sigla: "AC", nome: "Acre"},

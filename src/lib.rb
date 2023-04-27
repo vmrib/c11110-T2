@@ -1,5 +1,6 @@
+$:.push './src'
 require 'active_record'
-require './tables.rb'
+require 'tables.rb'
 
 def interact_with_user
   print "> "
@@ -65,7 +66,9 @@ def insert(table, attributes)
   if get_model(table).nil?
     return
   end
-  get_model(table).create(attributes)
+  if not get_model(table).create(attributes).valid?
+    puts "Atributos inválidos"
+  end
 end
 
 def update(table, attributes)
@@ -79,7 +82,9 @@ def update(table, attributes)
     .map { |attribute| attribute.split("=") }
     .to_h
 
-  get_model(table).where(attributes).update(attributes_to_update)
+  if not get_model(table).where(attributes).update(attributes_to_update).valid?
+    puts "Atributos inválidos"
+  end
 end
 
 def delete(table, attributes)
